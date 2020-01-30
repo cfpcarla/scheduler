@@ -1,12 +1,10 @@
-import reducer from "reducer/application";
 import { useEffect, useReducer } from "react";
 import "components/Application.scss";
 import axios from "axios";
+import reducer from "reducers/application";
 
 
 export default function useApplicationData() {
-
-
   const checkDay = (id) => {
     let dayID = null;
     for (const obj of state.days) {

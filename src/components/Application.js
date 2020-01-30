@@ -18,11 +18,7 @@ export default function Application(props) {
     cancelInterview
   } = useApplicationData();
 
-  console.log('state:', state);
-
   const interviewers = getInterviewersForDay(state, state.day)
-
-  console.log('interviewers:', interviewers);
 
   const appointments = getAppointmentsForDay(state, state.day).map((e) => {
     const interview = getInterview(state, e.interview);
@@ -68,7 +64,6 @@ export default function Application(props) {
           key="last"
           time="5pm"
         />
-
       </section>
     </main>
   );

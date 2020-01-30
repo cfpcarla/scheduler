@@ -1,6 +1,5 @@
 import { renderHook, act } from "@testing-library/react-hooks";
-
-import useVisualMode from "hooks/useVisualMode";
+import useVisualMode from "../useVisualMode";
 
 const FIRST = "FIRST";
 const SECOND = "SECOND";

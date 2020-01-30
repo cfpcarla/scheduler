@@ -1,4 +1,10 @@
 # Interview Scheduler
+Scheduler is a web application built with React.
+## Final Product
+
+!["Initial-page"](https://github.com/cfpcarla/tinyapp/blob/master/views/docs/create_new_url.png?raw=true)
+
+
 
 ## Setup
 

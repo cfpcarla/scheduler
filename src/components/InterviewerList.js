@@ -3,7 +3,7 @@ import "components/InterviewerList.scss";
 import InterviewerListItem from "components/InterviewerListItem";
 import PropTypes from 'prop-types';
 
-
+//show the interviewer on the scheduler
 export default function InterviewerList(props) {
   const list = props.interviewers.map(person => {
     return (<InterviewerListItem

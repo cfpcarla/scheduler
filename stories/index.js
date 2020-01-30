@@ -1,9 +1,6 @@
-/* We need to import React because we are using JSX. */
 import React, { Fragment } from "react";
 import { storiesOf } from "@storybook/react";
-
 import { action } from "@storybook/addon-actions";
-
 import "index.scss";
 
 import Button from "components/Button";
@@ -115,11 +112,6 @@ storiesOf("DayListItem", module)
       />
     ));
 
-
-
-
-
-
   const interviewers = [
     { id: 1, name: "Sylvia Palmer", avatar: "https://i.imgur.com/LpaY82x.png" },
     { id: 2, name: "Tori Malcolm", avatar: "https://i.imgur.com/Nmx0Qxo.png" },
@@ -145,8 +137,6 @@ storiesOf("DayListItem", module)
         onChange={action("onChange")}
       />
     ));
-
-
 
   storiesOf("DayList", module)
     .addParameters({
