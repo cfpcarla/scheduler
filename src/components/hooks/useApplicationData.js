@@ -3,7 +3,7 @@ import "components/Application.scss";
 import axios from "axios";
 import reducer from "reducers/application";
 
-
+//CheckDay
 export default function useApplicationData() {
   const checkDay = (id) => {
     let dayID = null;
@@ -48,6 +48,7 @@ export default function useApplicationData() {
     value: day
   });
 
+  //BookInterview
   function bookInterview(id, interview, create = false) {
     return axios.put(`http://localhost:8001/api/appointments/${id}`, { interview })
       .then(resp => {
@@ -74,7 +75,7 @@ export default function useApplicationData() {
         })
       })
   }
-
+  //delete
   function deleteInterview(id) {
     return axios.delete(`/api/appointments/${id}`)
       .then(resp => {

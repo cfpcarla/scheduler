@@ -1,10 +1,13 @@
 # Interview Scheduler
-Scheduler is a web application built with React.
+Scheduler is a web application built with React and Storybook that uses Jest and Cypress for testing and allows users to book an appointment to the given week.
+
 ## Final Product
 
 !["Initial-page"](https://github.com/cfpcarla/scheduler/blob/master/docs/initial-page.png)
 
+
 !["make-appointment"](https://github.com/cfpcarla/scheduler/blob/master/docs/make-appointment.png)
+
 
 !["delete-appointment"](https://github.com/cfpcarla/scheduler/blob/master/docs/delete-appointment.png)
 

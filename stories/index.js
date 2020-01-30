@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import "index.scss";
-
 import Button from "components/Button";
 import DayListItem from "components/DayListItem";
 import DayList from "components/DayList";
@@ -74,9 +73,6 @@ storiesOf("DayListItem", module)
   .add("Tuesday", () => (
     <DayList days={days} value={"Tuesday"} setDay={action("onChange")} />
   ));
-
-
-
 
   const interviewer = {
     id: 1,
