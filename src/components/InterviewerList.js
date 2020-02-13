@@ -3,7 +3,6 @@ import "components/InterviewerList.scss";
 import InterviewerListItem from "components/InterviewerListItem";
 import PropTypes from 'prop-types';
 
-//show the interviewer on the scheduler
 export default function InterviewerList(props) {
   const list = props.interviewers.map(person => {
     return (<InterviewerListItem
@@ -11,13 +10,18 @@ export default function InterviewerList(props) {
       name={person.name}
       avatar={person.avatar}
       selected={person.id === props.value}
+
       handleClick={() => {
         props.onChange(person.id)
       }} />)
+
   })
 
   return (
-    <section className="interviewers">
+    <section
+      className="interviewers"
+      data-testid="interview"
+    >
       <h4 className="interviewers__header text--light">Interviewer</h4>
       <ul className="interviewers__list">{list}</ul>
     </section>)

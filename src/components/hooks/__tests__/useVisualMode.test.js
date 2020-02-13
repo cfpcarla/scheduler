@@ -1,18 +1,19 @@
 import { renderHook, act } from "@testing-library/react-hooks";
+
 import useVisualMode from "../useVisualMode";
 
 const FIRST = "FIRST";
 const SECOND = "SECOND";
 const THIRD = "THIRD";
 
-//UseVisualMode shoould initialize
+//Should initialize
 test("useVisualMode should initialize with default value", () => {
   const { result } = renderHook(() => useVisualMode(FIRST));
 
   expect(result.current.mode).toBe(FIRST);
 });
 
-//UseVisualMode should transition
+//Should transition
 test("useVisualMode should transition to another mode", () => {
   const { result } = renderHook(() => useVisualMode(FIRST));
 
@@ -20,7 +21,7 @@ test("useVisualMode should transition to another mode", () => {
   expect(result.current.mode).toBe(SECOND);
 });
 
-//Use visualMode should return
+//Should return
 test("useVisualMode should return to previous mode", () => {
   const { result } = renderHook(() => useVisualMode(FIRST));
 
@@ -37,7 +38,7 @@ test("useVisualMode should return to previous mode", () => {
   expect(result.current.mode).toBe(FIRST);
 });
 
-//UseVisualMoode should not return
+//Should not return to previous
 test("useVisualMode should not return to previous mode if already at initial", () => {
   const { result } = renderHook(() => useVisualMode(FIRST));
 
@@ -45,7 +46,7 @@ test("useVisualMode should not return to previous mode if already at initial", (
   expect(result.current.mode).toBe(FIRST);
 });
 
-//UseVisualMoode should replace
+//Should replace
 test("useVisualMode should replace the current mode", () => {
   const { result } = renderHook(() => useVisualMode(FIRST));
 

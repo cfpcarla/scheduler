@@ -53,7 +53,7 @@ const fixtures = {
   }
 };
 
-export default {
+export default  {
   delete: jest.fn(url => {
     return Promise.resolve({
       status: 204,

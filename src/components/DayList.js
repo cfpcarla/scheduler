@@ -10,6 +10,5 @@ export default function DayList(props) {
       selected={day.name === props.day} //props.value
       setDay={() => props.setDay(day.name)} />)
   })
-
   return (<ul>{list}</ul>)
 }
