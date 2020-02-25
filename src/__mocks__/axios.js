@@ -52,31 +52,17 @@ const fixtures = {
     }
   }
 };
-
-export default  {
-  delete: jest.fn(url => {
-    return Promise.resolve({
-      status: 204,
-      statusText: "No Content"
-    });
-  }),
-  put: jest.fn(url => {
-    return Promise.resolve({
-      status: 204,
-      statusText: "No Content"
-    });
-  }),
-
+//get http request functions
+export default {
   get: jest.fn(url => {
-    if (url === "http://localhost:8001/api/days") {
+    if (url === "/api/days") {
       return Promise.resolve({
         status: 200,
         statusText: "OK",
         data: fixtures.days
       });
     }
-
-    if (url === "http://localhost:8001/api/appointments") {
+    if (url === "/api/appointments") {
       return Promise.resolve({
         status: 200,
         statusText: "OK",
@@ -84,12 +70,24 @@ export default  {
       });
     }
 
-    if (url === "http://localhost:8001/api/interviewers") {
+    if (url === "/api/interviewers") {
       return Promise.resolve({
         status: 200,
         statusText: "OK",
         data: fixtures.interviewers
       });
     }
+  }),
+  put: jest.fn(url => {
+    return Promise.resolve({
+      status: 204,
+      statusText: "No Content"
+    });
+  }),
+  delete: jest.fn(url => {
+    return Promise.resolve({
+      status: 204,
+      statusText: "No Content"
+    });
   })
-}
+};

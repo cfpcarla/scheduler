@@ -1,114 +1,88 @@
-import { useEffect, useReducer } from "react";
-import axios from "axios";
-import reducer, {
+import React, { useReducer, useEffect } from "react";
+ import axios from "axios";
+import  reducer, {
   SET_DAY,
   SET_APPLICATION_DATA,
   SET_INTERVIEW
 } from "../../reducers/application";
 
+
 export default function useApplicationData() {
-
-  const checkDay = (id) => {
-    let dayID = null;
-    for (const obj of state.days) {
-      if (obj.appointments.includes(id)) {
-        dayID = obj.id;
-      }
-    }
-    return dayID;
-  }
-
-  let [state, dispatch] = useReducer(reducer, {
+  const [state, dispatch] = useReducer(reducer, {
     day: "Monday",
     days: [],
     appointments: {},
-    interviewers: {}
+    interviwers: {}
   })
 
+  const setDay = day => dispatch({ type: SET_DAY, day })
+
   useEffect(() => {
+    let promiseDays = axios.get(`/api/days`);
+    let promiseAppointments = axios.get(`/api/appointments`);
+    let promiseInterviewers = axios.get(`/api/interviewers`);
+
 
     Promise.all([
-      axios.get("http://localhost:8001/api/days"),
-      axios.get("http://localhost:8001/api/appointments"),
-      axios.get("http://localhost:8001/api/interviewers")
-    ])
-    .then((all) => {
+      promiseDays,
+      promiseAppointments,
+      promiseInterviewers
+    ]).then((all) => {
       dispatch({
         type: SET_APPLICATION_DATA,
-        value: {
-          days: all[0].data,
-          appointments: all[1].data,
-          interviewers: all[2].data
+        days: all[0].data,
+        appointments: all[1].data,
+        interviewers: all[2].data
+      })  });
+    }, []);
+  const bookInterview = (id, interview) => {
+    const appointment = {
+      ...state.appointments[id],
+      interview
+    };
+    return axios.put(`api/appointments/${id}`, appointment)
+      .then(() => {
+        if (!state.appointments[id].interview) {
+          const dayObject = state.days.find(day => day.name === state.day);
+          state.days[dayObject.id - 1].spots--;
+          dispatch({ type: SET_INTERVIEW, id, interview })
+        }else{
+          dispatch({ type: SET_INTERVIEW, id, interview })
         }
-
       })
-    })
-    // .catch((error) => {
-    //   console.error(error.response.status);
-    //   console.error(error.response.headers);
-    //   console.error(error.response.data);
-    // });
-  }, [])
+  }
 
-  const setDay = day => dispatch({
-    type: SET_DAY,
-    value: day
-  });
-
-  function bookInterview(id, interview, create = false) {
-    return axios.put(`http://localhost:8001/api/appointments/${id}`, { interview })
-    .then(resp => {
-      const intvw = { ...interview };
-
-      const appointment = {
-        ...state.appointments[id],
-        interview: { ...intvw }
-      };
-
-      const appointments = {
-        ...state.appointments,
-        [id]: appointment
-      };
-
-      const days = state.days.map(day => {
-        return (create ? day.id === checkDay(id) ? { ...day, spots: day.spots - 1 } : { ...day } : { ...day })
-      });
-
-      dispatch({
-        type: SET_INTERVIEW,
-        appointments,
-        days
-      })
-    })
-  };
-
-  function deleteInterview(id) {
+  //deletes the appointment
+  const cancelInterview = (id) => {
     return axios.delete(`/api/appointments/${id}`)
-    .then(resp => {
-      const interview = {
-        ...state.appointments[id],
-        interview: null
-      };
-      const appointments = {
-        ...state.appointments,
-        [id]: interview
-      };
-
-      const days = state.days.map(day => {
-        return (day.id === checkDay(id) ? { ...day, spots: day.spots + 1 } : { ...day })
-      });
-
-      dispatch({
-        type: SET_INTERVIEW,
-        appointments,
-        days
+      .then(() => {
+        const dayObject = state.days.find(day => day.name === state.day);
+        state.days[dayObject.id - 1].spots++;
+        dispatch({ type: SET_INTERVIEW, id, interview: null })
       })
-    })
-  };
+  }
+
+  const formatSpots = (prop) => {
+    if(prop > 0) {
+      return (
+        <span>
+          <span data-testid="spotsRemaining">{prop}</span> spot{prop > 1 && 's'} remaining
+        </span>
+      )
+    }
+    return (
+      <span>
+        <span data-testid="spotsRemaining">no</span> spots remaining
+      </span>
+    )
+
+  }
   return {
     state,
     setDay,
     bookInterview,
-    cancelInterview: deleteInterview
+    cancelInterview,
+    formatSpots
   }
-};
+
+}
